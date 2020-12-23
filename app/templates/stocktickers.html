@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<h1>STOCK & OPTIONS INFO PAGE</h1>
+
+<div class="container">
+<div class="form-group">
+    <form action="" method="POST">
+        {{ form.hidden_tag() }}
+        <fieldset>
+            {{ form.ticker_symbol.label }}
+            {{ form.ticker_symbol(class='StockTickerForm', placeholder='Enter Ticker Symbol')}}
+            {{ form.expiration_date.label }}
+            {{ form.expiration_date(class='StockTickerForm', placeholder='YYYY-MM-DD')}}
+            {{ form.strike_price.label }}
+            {{ form.strike_price(class='StockTickerForm', placeholder='Enter Strike Price')}}
+        </fieldset>
+        {{ form.submit(class='btn btn-primary') }}
+    </form>
+</div>
+</div>
+
+
+{% if ticker_data %}
+<div class="card" style="width: 18rem;">
+    <div class="card-header">{{ ticker_data.data }}</div>
+    <ul class="list-group list-group-flush">
+      <li class="list-group-item"><b>ticker:</b> {{ ticker_data.ticker }} </li>
+      <li class="list-group-item"><b>tradeDate: </b> {{ ticker_data.tradeDate }} </li>
+      <li class="list-group-item"><b>expirDate: </b> {{ ticker_data.expirDate }} </li>
+      <li class="list-group-item"><b>strikePrice: </b> {{ticker_data.strikePrice }} </li>
+      <li class="list-group-item"><b>stockPrice: </b> {{ ticker_data.stockPrice }} </li>
+      <li class="list-group-item"><b>callVolume: </b> {{ ticker_data.callVolume }} </li>
+      <li class="list-group-item"><b>putVolume: </b> {{ ticker_data.putVolume }} </li>
+    </ul>
+  </div>
+{% endif %}
+
+  
+   <a href="{{url_for('plot_csv')}}" target="blank"><button class='btn btn-primary'>Download Data</button></a>
+  
+
+
+{% endblock content %}
